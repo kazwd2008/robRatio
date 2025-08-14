@@ -41,7 +41,7 @@
 #'
 #' x1 <- seq(1, 10, by=0.1)
 #' #e <- rnorm(length(x))
-#' e <- rt(length(x), df=3)   # error term following t distribution
+#' e <- rt(length(x1), df=3)   # error term following t distribution
 #'
 #' b <- 2		# true value of slope
 #'

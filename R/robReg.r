@@ -32,22 +32,22 @@ tp2 <- tp/2-1  # (4, 6, 8) => (1, 2, 3)
 
   if (wfs == "T.AAD") {          
         c1 <- switch(tp2, 4, 6, 8)
-	rt <- Tirls.ave(x1, y1, rt, c1, rp.max, cg.rt)
+	rt <- Tirls.aad(x1, y1, rt, c1, rp.max, cg.rt)
         cd <- paste("wf=", wf, "scale=", scale, "tp=", tp, "c1=", c1, sep=",")
         return(list(cond=cd, TK=rt$TK, wt=rt$wt, rp=rt$rp, s1=rt$s1))
      } else if (wfs == "T.MAD") { 
         c1 <- switch(tp2, 5.01, 7.52, 10.03) 
-        rt <- Tirls.med(x1, y1, rt, c1, rp.max, cg.rt)
+        rt <- Tirls.mad(x1, y1, rt, c1, rp.max, cg.rt)
         cd <- paste("wf=", wf, "scale=", scale, "tp=", tp, "c1=", c1, sep=",")
         return(list(cond=cd, TK=rt$TK, wt=rt$wt, rp=rt$rp, s1=rt$s1))
      } else if (wfs == "H.AAD") { 
         c1 <- switch(tp2, 1.15, 1.72, 2.30)
-        rt <- Hirls.ave(x1, y1, rt, c1, rp.max, cg.rt)
+        rt <- Hirls.aad(x1, y1, rt, c1, rp.max, cg.rt)
         cd <- paste("wf=", wf, "scale=", scale, "tp=", tp, "c1=", c1, sep=",")
         return(list(cond=cd, HB=rt$HB, wt=rt$wt, rp=rt$rp, s1=rt$s1))
      } else if (wfs == "H.MAD") { 
         c1 <- switch(tp2, 1.44, 2.16, 2.88)
-        rt <- Hirls.med(x1, y1, rt, c1, rp.max, cg.rt)
+        rt <- Hirls.mad(x1, y1, rt, c1, rp.max, cg.rt)
         cd <- paste("wf=", wf, "scale=", scale, "tp=", tp, "c1=", c1, sep=",")
         return(list(cond=cd, HB=rt$HB, wt=rt$wt, rp=rt$rp, s1=rt$s1))
      } else stop('Select an "T" or "H" for wf, and "AAD" or "MAD" for scale ')

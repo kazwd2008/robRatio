@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
-#' @name  Hirls.ave
-#' @title Hirls.ave: Robust estimator for the linear regression model
+#' @name  Hirls.aad
+#' @title Hirls.aad: Robust estimator for the linear regression model
 #'               with Huber's weight function and AAD scal
 #'               by iteratively re-weighted least squares (IRLS) algorithm 
 #'
 #' @param x1 explanatory variable(s)
 #' @param y1 objective variable 
 #' @param rt sample weights
-#' @param c1 tuning parameter from 1.15 to 2.30 for the scale parameter of AAD(average absolute deviation)
+#' @param c1 tuning parameter from 1.15 to 2.30 for the scale parameter of AAD(Average Absolute Deviation)
 #' @param rp.max maximum number of iteration
 #' @param cg.rt convergence condition to stop iteration (default: cg1=0.001)
 #'
@@ -16,11 +16,11 @@
 #'   \item{\code{HB}}{results of robust regression}
 #'   \item{\code{wt}}{robust weights}
 #'   \item{\code{rp}}{total number of iteration}
-#'   \item{\code{s1}}{changes of the scale (AAD or MAD)}
+#'   \item{\code{s1}}{changes in scale through iterative calculation}
 #' }
 #' @export
 #-------------------------------------------------------------------------------
-Hirls.ave <- function(x1, y1, rt=rep(1, length(y1)), c1=1.15, rp.max=150, cg.rt=0.01) {
+Hirls.aad <- function(x1, y1, rt=rep(1, length(y1)), c1=1.15, rp.max=150, cg.rt=0.01) {
 
   s1.cg <- rep(0, rp.max)               # save changes of scale (2011.03.07)
   R0 <- stats::lm(y1~x1, weights=rt)    # initial estimation by OLS
@@ -51,14 +51,14 @@ Hirls.ave <- function(x1, y1, rt=rep(1, length(y1)), c1=1.15, rp.max=150, cg.rt=
 
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-#' @name  Hirls.ave
-#' @title Hirls.ave: Robust estimator for the linear regression model
-#'               with Huber's weight function and AAD scal
+#' @name  Hirls.mad
+#' @title Hirls.mad: Robust estimator for the linear regression model
+#'               with Huber's weight function and MAD scal
 #'               by iteratively re-weighted least squares (IRLS) algorithm 
 #'
 #' @param x1 explanatory variable(s)
 #' @param y1 objective variable 
-#' @param c1 tuning parameter from 1.44 to 2.88 for the scale parameter of MAD(median absolute deviation)
+#' @param c1 tuning parameter from 1.44 to 2.88 for the scale parameter of MAD(Median Absolute Deviation)
 #' @param rt sample weights
 #' @param rp.max maximum number of iteration
 #' @param cg.rt convergence condition to stop iteration (default: cg1=0.001)
@@ -68,11 +68,11 @@ Hirls.ave <- function(x1, y1, rt=rep(1, length(y1)), c1=1.15, rp.max=150, cg.rt=
 #'   \item{\code{HB}}{results of robust regression}
 #'   \item{\code{wt}}{robust weights}
 #'   \item{\code{rp}}{total number of iteration}
-#'   \item{\code{s1}}{changes of the scale (AAD or MAD)}
+#'   \item{\code{s1}}{changes in scale through iterative calculation}
 #' }
 #' @export
 #-------------------------------------------------------------------------------
-Hirls.med <- function(x1, y1, rt=rep(1, length(y1)), c1=1.44, rp.max=150, cg.rt=0.01) {
+Hirls.mad <- function(x1, y1, rt=rep(1, length(y1)), c1=1.44, rp.max=150, cg.rt=0.01) {
 
   s1.cg <- rep(0, rp.max)               # save changes of scale (2011.03.07)
   R0 <- stats::lm(y1~x1, weights=rt)    # initial estimation by OLS

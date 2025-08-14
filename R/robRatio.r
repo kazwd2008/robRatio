@@ -88,16 +88,16 @@ robRatio <- function(x1, y1, gm="b", wf="T", scale="AAD", rt=1, tp=8,
      if (scale=="AAD"){
 
         c1 <- switch(tp2, 4, 6, 8)
-        if (gm=="a") ot <- RrTa.aad(x1, y1, c1, rp.max, cg.rt)
-        if (gm=="b") ot <- RrTb.aad(x1, y1, c1, rp.max, cg.rt)
-        if (gm=="c") ot <- RrTc.aad(x1, y1, c1, rp.max, cg.rt)
+        if (gm=="a") ot <- RrT.aad(x1, y1, g1=1, c1, rp.max, cg.rt)
+        if (gm=="b") ot <- RrT.aad(x1, y1, g1=1/2, c1, rp.max, cg.rt)
+        if (gm=="c") ot <- RrT.aad(x1, y1, g1=0, c1, rp.max, cg.rt)
 
      } else {
 
         c1 <- switch(tp2, 5.01, 7.52, 10.03)  # tuning constant for SD (MAD in R)
-        if (gm=="a") ot <- RrTa.mad(x1, y1, c1, rp.max, cg.rt)
-        if (gm=="b") ot <- RrTb.mad(x1, y1, c1, rp.max, cg.rt)
-        if (gm=="c") ot <- RrTc.mad(x1, y1, c1, rp.max, cg.rt)
+        if (gm=="a") ot <- RrT.mad(x1, y1, g1=1, c1, rp.max, cg.rt)
+        if (gm=="b") ot <- RrT.mad(x1, y1, g1=1/2, c1, rp.max, cg.rt)
+        if (gm=="c") ot <- RrT.mad(x1, y1, g1=0, c1, rp.max, cg.rt)
 
      }
      cd <- paste("gm=",gm, "scale=",scale,"wf=",wf, "tp=", tp, "c1=",c1, sep=",") 
@@ -107,16 +107,16 @@ robRatio <- function(x1, y1, gm="b", wf="T", scale="AAD", rt=1, tp=8,
      if (scale=="AAD"){
 
         c1 <- switch(tp2, 1.15, 1.72, 2.30)
-        if (gm=="a") ot <- RrHa.aad(x1, y1, c1, rp.max, cg.rt)
-        if (gm=="b") ot <- RrHb.aad(x1, y1, c1, rp.max, cg.rt)
-        if (gm=="c") ot <- RrHc.aad(x1, y1, c1, rp.max, cg.rt)
+        if (gm=="a") ot <- RrH.aad(x1, y1, g1=1, c1, rp.max, cg.rt)
+        if (gm=="b") ot <- RrH.aad(x1, y1, g1=1/2, c1, rp.max, cg.rt)
+        if (gm=="c") ot <- RrH.aad(x1, y1, g1=0, c1, rp.max, cg.rt)
 
      } else {
 
         c1 <- switch(tp2, 1.44, 2.16, 2.88)  # tuning constant for SD (MAD in R)
-        if (gm=="a") ot <- RrHa.mad(x1, y1, c1, rp.max, cg.rt)
-        if (gm=="b") ot <- RrHb.mad(x1, y1, c1, rp.max, cg.rt)
-        if (gm=="c") ot <- RrHc.mad(x1, y1, c1, rp.max, cg.rt)
+        if (gm=="a") ot <- RrH.mad(x1, y1, g1=1, c1, rp.max, cg.rt)
+        if (gm=="b") ot <- RrH.mad(x1, y1, g1=1/2, c1, rp.max, cg.rt)
+        if (gm=="c") ot <- RrH.mad(x1, y1, g1=0, c1, rp.max, cg.rt)
 
      }
      cd <- paste("gm=",gm, "scale=",scale,"wf=",wf, "tp=", tp, "c1=",c1, sep=",") 

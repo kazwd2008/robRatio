@@ -1,14 +1,14 @@
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-#' @name  Tirls.ave
-#' @title Tirls.ave: Robust estimator for the linear regression model
+#' @name  Tirls.aad
+#' @title Tirls.aad: Robust estimator for the linear regression model
 #'               with Tukey's biweight function and AAD scal
 #'               by iteratively re-weighted least squares (IRLS) algorithm 
 #'
 #' @param x1 explanatory variable(s)
 #' @param y1 objective variable 
 #' @param rt sample weights
-#' @param c1 tuning parameter from 4 to 8 for the scale parameter of AAD(average absolute deviation) 
+#' @param c1 tuning parameter from 4 to 8 for the scale parameter of AAD(Average Absolute Deviation) 
 #' @param rp.max maximum number of iteration
 #' @param cg.rt convergence condition to stop iteration (default: cg1=0.001)
 #'
@@ -17,11 +17,11 @@
 #'   \item{\code{TK}}{results of robust regression}
 #'   \item{\code{wt}}{robust weights}
 #'   \item{\code{rp}}{total number of iteration}
-#'   \item{\code{s1}}{changes of the scale (AAD or MAD)}
+#'   \item{\code{s1}}{changes in scale through iterative calculation}
 #' }
 #' @export
 #-------------------------------------------------------------------------------
-Tirls.ave <- function(x1, y1, rt=rep(1, length(y1)), c1=8, rp.max=150, cg.rt=0.01) {
+Tirls.aad <- function(x1, y1, rt=rep(1, length(y1)), c1=8, rp.max=150, cg.rt=0.01) {
 
   s1.cg <- rep(0, rp.max)               # save changes of scale (2012.12.18)
   R0 <- stats::lm(y1~x1, weights=rt)           # initial estimation by OLS
@@ -54,14 +54,14 @@ Tirls.ave <- function(x1, y1, rt=rep(1, length(y1)), c1=8, rp.max=150, cg.rt=0.0
 
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-#' @name  Tirls.med
-#' @title Tirls.med: Robust estimator for the linear regression model
+#' @name  Tirls.mad
+#' @title Tirls.mad: Robust estimator for the linear regression model
 #'               with Tukey's biweight function and MAD scale
 #'               by iteratively re-weighted least squares (IRLS) algorithm 
 #'
 #' @param x1 explanatory variable(s)
 #' @param y1 objective variable 
-#' @param c1 tuning parameter from 5.01 to 10.03 for the scale parameter of MAD(median absolute deviation)
+#' @param c1 tuning parameter from 5.01 to 10.03 for the scale parameter of MAD(Median Absolute Deviation)
 #' @param rt sample weights
 #' @param rp.max maximum number of iteration
 #' @param cg.rt convergence condition to stop iteration (default: cg1=0.001)
@@ -71,11 +71,11 @@ Tirls.ave <- function(x1, y1, rt=rep(1, length(y1)), c1=8, rp.max=150, cg.rt=0.0
 #'   \item{\code{TK}}{results of robust regression}
 #'   \item{\code{wt}}{robust weights}
 #'   \item{\code{rp}}{total number of iteration}
-#'   \item{\code{s1}}{changes of the scale (AAD or MAD)}
+#'   \item{\code{s1}}{changes in scale through iterative calculation}
 #' }
 #' @export
 #-------------------------------------------------------------------------------
-Tirls.med <- function(x1, y1, rt=rep(1, length(y1)), c1=10.03, rp.max=150, cg.rt=0.01) {
+Tirls.mad <- function(x1, y1, rt=rep(1, length(y1)), c1=10.03, rp.max=150, cg.rt=0.01) {
   s1.cg <- rep(0, rp.max)               # save changes of scale (2011.03.07)
   R0 <- stats::lm(y1~x1, weights=rt)    # initial estimation by OLS
   

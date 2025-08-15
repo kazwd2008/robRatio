@@ -22,7 +22,7 @@ Hirls.mad(
 
 \item{rt}{sample weights}
 
-\item{c1}{tuning parameter from 1.44 to 2.88 for the scale parameter of MAD(median absolute deviation)}
+\item{c1}{tuning parameter from 1.44 to 2.88 for the scale parameter of MAD(Median Absolute Deviation)}
 
 \item{rp.max}{maximum number of iteration}
 
@@ -34,7 +34,7 @@ a list with the following elements
 \item{\code{HB}}{results of robust regression}
 \item{\code{wt}}{robust weights}
 \item{\code{rp}}{total number of iteration}
-\item{\code{s1}}{changes of the scale (AAD or MAD)}
+\item{\code{s1}}{changes in scale through iterative calculation}
 }
 }
 \description{

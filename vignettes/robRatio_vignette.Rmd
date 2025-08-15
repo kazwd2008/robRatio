@@ -1,36 +1,38 @@
 ---
-title: "Functions included and their tuning parameters"
-output: rmarkdown::html_vignette
+title: Functions included and their tuning parameters
+author: WADA, Kazumi
+output: 
+  rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{robRatio}
+  %\VignetteIndexEntry{Functions included and their tuning parameters}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-# Structure of functions included in this package
+## Structure of functions included in this package
 
-This package containts two parent functions.  One is robRatio() for ratio models and the other is robReg() for linear regression models.
+This package containts two parent functions.  One is `robRatio()` for ratio models and the other is `robReg()` for linear regression models.
 
-Both robRatio() and robreg() have two child functions.  One uses Tukey's biweight function and the other, Huber's weight function to calculating robust weight.
+Both `robRatio()` and `robreg()` have two child functions.  One uses Tukey's biweight function and the other, Huber's weight function to calculating robust weight.
 
 The following table shows the relationship of each function with their models, weight functions, and scales of residuals.
 
-|Model|Parent function| Child function |Weight function|Scale for residuals|
-|:--------:|:------:|:-------:|:--------------:|:-------------------------:|
-|Ratio     |robRatio|RrT.aad  |Tukey's biweight|Average Absolute Deviation (AAD)|
-|Ratio     |robRatio|RrT.mad  |Tukey's biweight|Median Absolute Deviation (MAD)|
-|Ratio     |robRatio|RrH.aad  |Huber weight    |AAD|
-|Ratio     |robRatio|RrH.mad  |Huber weight    |MAD|
-|Regression|robReg  |Tirls.aad|Tukey's biweight|AAD|
-|Regression|robReg  |Tirls.mad|Tukey's biweight|MAD|
-|Regression|robReg  |Hirls.aad|Huber weight    |AAD|
-|Regression|robReg  |Hirls.mad|Huber weight    |MAD|
+|Model|Parent function|Child function |Weight function|Scale for residuals|
+|:---------------:|:------:|:-------:|:--------------:|:------------------------------:|
+|Generalized Ratio|robRatio|RrT.aad  |Tukey's biweight|Average Absolute Deviation (AAD)|
+|Generalized Ratio|robRatio|RrT.mad  |Tukey's biweight|Median Absolute Deviation (MAD) |
+|Generalized Ratio|robRatio|RrH.aad  |Huber weight    |AAD|
+|Generalized Ratio|robRatio|RrH.mad  |Huber weight    |MAD|
+|Regression       |robReg  |Tirls.aad|Tukey's biweight|AAD|
+|Regression       |robReg  |Tirls.mad|Tukey's biweight|MAD|
+|Regression       |robReg  |Hirls.aad|Huber weight    |AAD|
+|Regression       |robReg  |Hirls.mad|Huber weight    |MAD|
 
-# About scales of residuals
+## About scales of residuals
 
-The parent functions, robRatio() and robReg() has a tuning parameter 'tp'. It accepts only4, 6, or 8; however, actual figures of tuning costant differs depending on the weight function and scale of residuals.
+The parent functions, `robRatio()` and `robReg()` has a tuning parameter `tp`. It accepts only 4, 6, or 8; however, actual figures of tuning costant differs depending on the weight function and scale of residuals.
 
-The following table shows the relation of the tuning parameter 'tp' of robRatio(), robReg(), and their child functions' 'c1'.  The parameter 'tp' of the parent functions is standardized based on Tukey's biweight function with AAD scale so that users are not bothered by differences in weight functions and scales. If users would like to try tuning constants other than the given values (tp=4, 6, or 8), use the child functions (RrT(), RrH(), Tirls(), and Hirls()) directly and set the actual value of the tuning constant for 'c1'. Please note that the return value of R's mad() is standardized according to the SD(standard deviation), so choose the value for SD scale for c1 when using the MAD scale. 
+The following table shows the relation of the tuning parameter `tp` of `robRatio()`, `robReg()`, and their child functions' `c1`.  The parameter `tp` of the parent functions is standardized based on Tukey's biweight function with AAD scale so that users are not bothered by differences in weight functions and scales. If users would like to try tuning constants other than the given values (tp=4, 6, or 8), use the child functions (`RrT()`, `RrH()`, `Tirls()`, and `Hirls()`) directly and set the actual value of the tuning constant for `c1`. Please note that the return value of R's `mad()` is standardized according to the SD(standard deviation), so choose the value for SD scale for `c1` when using the MAD scale. 
 
 | weight | scale | tp=4    | tp=6    | tp=8     |
 |:------:|:-----:|---------|---------|----------|
@@ -43,7 +45,7 @@ The following table shows the relation of the tuning parameter 'tp' of robRatio(
 
 The IRLS algorithm is based on Bienias et al. (1997). The tuning parameter 'tp' should be set between tp=4(more robust) and tp=8(less robust). For the child functions' 'c1', values within the range shown in the table above are expected but not limited.
 
-# Reference
+## Reference
 
 Bienias, J. L., Lassman, D. M. Scheleur, S. A. and Hogan H. (1997) Improving Outlier Detection in Two
 Establishment Surveys. Statistical Data Editing 2 - Methods and Techniques. (UNSC and UNECE eds.), 76-83.

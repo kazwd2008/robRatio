@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="WADA, Kazumi" />
+
+
+<title>Functions included and their tuning parameters</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Functions included and their tuning
+parameters</h1>
+<h4 class="author">WADA, Kazumi</h4>
+
+
+
+<div id="structure-of-functions-included-in-this-package" class="section level2">
+<h2>Structure of functions included in this package</h2>
+<p>This package containts two parent functions. One is
+<code>robRatio()</code> for ratio models and the other is
+<code>robReg()</code> for linear regression models.</p>
+<p>Both <code>robRatio()</code> and <code>robreg()</code> have two child
+functions. One uses Tukey’s biweight function and the other, Huber’s
+weight function to calculating robust weight.</p>
+<p>The following table shows the relationship of each function with
+their models, weight functions, and scales of residuals.</p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="9%" />
+<col width="10%" />
+<col width="19%" />
+<col width="39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Model</th>
+<th align="center">Parent function</th>
+<th align="center">Child function</th>
+<th align="center">Weight function</th>
+<th align="center">Scale for residuals</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Generalized Ratio</td>
+<td align="center">robRatio</td>
+<td align="center">RrT.aad</td>
+<td align="center">Tukey’s biweight</td>
+<td align="center">Average Absolute Deviation (AAD)</td>
+</tr>
+<tr class="even">
+<td align="center">Generalized Ratio</td>
+<td align="center">robRatio</td>
+<td align="center">RrT.mad</td>
+<td align="center">Tukey’s biweight</td>
+<td align="center">Median Absolute Deviation (MAD)</td>
+</tr>
+<tr class="odd">
+<td align="center">Generalized Ratio</td>
+<td align="center">robRatio</td>
+<td align="center">RrH.aad</td>
+<td align="center">Huber weight</td>
+<td align="center">AAD</td>
+</tr>
+<tr class="even">
+<td align="center">Generalized Ratio</td>
+<td align="center">robRatio</td>
+<td align="center">RrH.mad</td>
+<td align="center">Huber weight</td>
+<td align="center">MAD</td>
+</tr>
+<tr class="odd">
+<td align="center">Regression</td>
+<td align="center">robReg</td>
+<td align="center">Tirls.aad</td>
+<td align="center">Tukey’s biweight</td>
+<td align="center">AAD</td>
+</tr>
+<tr class="even">
+<td align="center">Regression</td>
+<td align="center">robReg</td>
+<td align="center">Tirls.mad</td>
+<td align="center">Tukey’s biweight</td>
+<td align="center">MAD</td>
+</tr>
+<tr class="odd">
+<td align="center">Regression</td>
+<td align="center">robReg</td>
+<td align="center">Hirls.aad</td>
+<td align="center">Huber weight</td>
+<td align="center">AAD</td>
+</tr>
+<tr class="even">
+<td align="center">Regression</td>
+<td align="center">robReg</td>
+<td align="center">Hirls.mad</td>
+<td align="center">Huber weight</td>
+<td align="center">MAD</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="about-scales-of-residuals" class="section level2">
+<h2>About scales of residuals</h2>
+<p>The parent functions, <code>robRatio()</code> and
+<code>robReg()</code> has a tuning parameter <code>tp</code>. It accepts
+only <span class="math inline">\(4, 6\)</span>, or <span class="math inline">\(8\)</span>; however, actual figures of tuning
+costant differs depending on the weight function and scale of
+residuals.</p>
+<p>The following table shows the relation of the tuning parameter
+<code>tp</code> of <code>robRatio()</code>, <code>robReg()</code>, and
+their child functions’ <code>c1</code>. The parameter <code>tp</code> of
+the parent functions is standardized based on Tukey’s biweight function
+with AAD scale so that users are not bothered by differences in weight
+functions and scales. If users would like to try tuning constants other
+than the given values (<span class="math inline">\(tp=4, 6, or
+8\)</span>), use the child functions (<code>RrT()</code>,
+<code>RrH()</code>, <code>Tirls()</code>, and <code>Hirls()</code>)
+directly and set the actual value of the tuning constant for
+<code>c1</code>. Please note that the return value of R’s
+<code>mad()</code> is standardized according to the SD(standard
+deviation), so choose the value for SD scale for <code>c1</code> when
+using the MAD scale.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">weight</th>
+<th align="center">scale</th>
+<th>tp=4</th>
+<th>tp=6</th>
+<th>tp=8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Tukey</td>
+<td align="center">SD</td>
+<td>c1=5.01</td>
+<td>c1=7.52</td>
+<td>c1=10.03</td>
+</tr>
+<tr class="even">
+<td align="center">Tukey</td>
+<td align="center">AAD</td>
+<td>c1=4</td>
+<td>c1=6</td>
+<td>c1=8</td>
+</tr>
+<tr class="odd">
+<td align="center">Tukey</td>
+<td align="center">MAD</td>
+<td>c1=3.38</td>
+<td>c1=5.07</td>
+<td>c1=6.76</td>
+</tr>
+<tr class="even">
+<td align="center">Huber</td>
+<td align="center">SD</td>
+<td>c1=1.44</td>
+<td>c1=2.16</td>
+<td>c1=2.88</td>
+</tr>
+<tr class="odd">
+<td align="center">Huber</td>
+<td align="center">AAD</td>
+<td>c1=1.15</td>
+<td>c1=1.72</td>
+<td>c1=2.30</td>
+</tr>
+<tr class="even">
+<td align="center">Huber</td>
+<td align="center">MAD</td>
+<td>c1=0.97</td>
+<td>c1=1.46</td>
+<td>c1=1.94</td>
+</tr>
+</tbody>
+</table>
+<p>The IRLS algorithm is based on Bienias et al. (1997). The tuning
+parameter ‘tp’ should be set between tp=4(more robust) and tp=8(less
+robust). For the child functions’ ‘c1’, values within the range shown in
+the table above are expected but not limited.</p>
+</div>
+<div id="reference" class="section level2">
+<h2>Reference</h2>
+<p>Bienias, J. L., Lassman, D. M. Scheleur, S. A. and Hogan H. (1997)
+Improving Outlier Detection in Two Establishment Surveys. Statistical
+Data Editing 2 - Methods and Techniques. (UNSC and UNECE eds.), 76-83.
+URL: <a href="https://digitallibrary.un.org/record/240780?v=pdf" class="uri">https://digitallibrary.un.org/record/240780?v=pdf</a></p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

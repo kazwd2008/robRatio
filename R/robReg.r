@@ -24,8 +24,66 @@
 #' }
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
+#' @examples
+#' \dontrun{
+#' require(robRatio)
+#'
+#' set.seed(4)
+#' cov1 <- matrix(c(3, 2.8, 2.8, 3), 2, 2)
+#' cov2 <- matrix(c(2.5, 0, 0, 3), 2, 2)
+#' dat1 <-  MASS::mvrnorm(n=400, mu=c(100, 100), Sigma=cov1, empirical=TRUE)
+#' dat2 <-  cbind(runif(100,  min=96, max=104),  runif(50,  min=95, max=105))
+#' dat3 <- matrix(c(103, 103.5, 104.5, 104.8, 96, 98, 94, 95), 4, 2) 
+#' dat <- rbind(dat1, dat2, dat3)
+#' plot(dat)
+#' y1 <- dat[,2]
+#' x1 <- dat[,1]
+#' 
+#' R0  <- lm(y1~x1)        # regression by OLS                                         
+#' 
+#' o1 <- robReg(x1, y1, tp=4)  # robust regression by IRLS (more robust)
+#' o2 <- robReg(x1, y1, tp=8)  # robust regression by IRLS (less robust)
+#' 
+#' par(mfrow=c(2,2))
+#' 
+#' # non-robust regression
+#'   plot(dat, pch=20, main="non-robust regression")
+#'   abline(R0, col="red", lwd=2)
+#' 
+#' # robust regression with coloring robust weight
+#'   f.o1 <- rep(1, length(x1))
+#'   f.o1[which(o1$wt < 0.8)] <- 3
+#'   f.o1[which(o1$wt < 0.5)] <- 7
+#'   f.o1[which(o1$wt < 0.2)] <- 2
+#'   f.o1[which(o1$wt == 0)] <- 8
+#' 
+#'   plot(x1, y1, pch=20, col=f.o1)
+#'   abline(R0, col="red", lty=3)
+#'   abline(o1$TK, col="blue", lwd=2)
+#'   abline(o2$TK, col="cyan", lwd=2)
+#' 
+#' # robust weights (more robust)
+#'   hist(o1$wt, main="tp=4(more robust)")
+#' 
+#' # robust weights (less robust)
+#'   hist(o2$wt, main="tp=4(less robust)")
+#' 
+#' }
+#'
+#' @export
+#'
+####+####|####+####|####+####|####+####|####+####|####+####|####+####|####+####|
 robReg <- function(x1, y1, wf="T", scale="AAD", rt=rep(1, length(y1)), tp=8, 
                    rp.max=150, cg.rt=0.01) {
+
+  vl.wf    <- c("T", "H")
+  vl.scale <- c("AAD", "MAD")
+  vl.tp    <- c(4, 6, 8)
+
+  if (wf    %in% vl.wf    == FALSE) stop("Please choose 'T' or 'H' for wf")
+  if (scale %in% vl.scale == FALSE) stop("Please choose 'AAD' or 'MAD' for scale")
+  if (tp    %in% vl.tp    == FALSE) stop("Please choose 4, 6 or 8 for tp")
+  if (length(rt) %in% c(1, length(y1)) ==FALSE) stop("Incorrect length of rt")
 
 wfs <- paste(wf, scale, sep=".")
 tp2 <- tp/2-1  # (4, 6, 8) => (1, 2, 3)

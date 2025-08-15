@@ -23,12 +23,12 @@ RrH.mad(x1, y1, g1 = 0.5, c1 = 2.88, rp.max = 100, cg.rt = 0.01)
 }
 \value{
 a list with the following elements
-par   robustly estimated ratio of y1 to x1
-res   homoscedastic quasi-residuals
-wt    robust weights
-rp    total number of iteration
-s1    changes of the scale (AAD or MAD)
-efg   error flag. 1: acalculia (all weights become zero)  0: successful termination
+\item{\code{par}}{robustly estimated ratio of y1 to x1}
+\item{\code{res}}{homoscedastic quasi-residuals}
+\item{\code{wt}}{robust weights}
+\item{\code{rp}}{total number of iteration}
+\item{\code{s1}}{changes in scale through iterative calculation}
+\item{\code{efg}}{error flag. 1: acalculia (all weights become zero)  0: successful termination}
 }
 \description{
 Robust estimator for a generalized ratio model

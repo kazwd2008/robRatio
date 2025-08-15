@@ -40,7 +40,7 @@
 #' require(robRatio)
 #'
 #' x1 <- seq(1, 10, by=0.1)
-#' #e <- rnorm(length(x))
+#' #e <- rnorm(length(x1))
 #' e <- rt(length(x1), df=3)   # error term following t distribution
 #'
 #' b <- 2		# true value of slope
@@ -63,6 +63,7 @@
 #' }
 #'
 #' @export
+#'
 ####+####|####+####|####+####|####+####|####+####|####+####|####+####|####+####|
 
 robRatio <- function(x1, y1, gm="b", wf="T", scale="AAD", rt=1, tp=8, 

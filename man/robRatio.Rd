@@ -52,16 +52,17 @@ a list with the following elements
 }
 }
 \description{
-This robRatio function integrates 12 functions below for easy
-use for users.  Please note that the values for the tuning parameter \code{tp}
-allowed in this function is standardized.
+This robRatio function integrates 4 functions (RrT.aad, RrT.mad,
+RrH.aad and RrH.mad) for easy use for users.  Please note that the values for
+the tuning parameter \code{tp} allowed in this function is standardized.
+See the vignette for the detail.
 }
 \examples{
 \dontrun{
 require(robRatio)
 
 x1 <- seq(1, 10, by=0.1)
-#e <- rnorm(length(x))
+#e <- rnorm(length(x1))
 e <- rt(length(x1), df=3)   # error term following t distribution
 
 b <- 2		# true value of slope

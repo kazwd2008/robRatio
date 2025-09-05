@@ -11,9 +11,9 @@
  o2 <- sum(y1)/sum(x1)
 
     fg1 <- rep(1, length(y1))
-    fg1[which(o1.Tk8$wt < 0.8)] 	<- 3
-    fg1[which(o1.Tk8$wt < 0.5)] 	<- 7
-    fg1[which(o1.Tk8$wt < 0.2)] 	<- 2
+    fg1[which(o1.Tk8$wt < 0.8)] <- 3
+    fg1[which(o1.Tk8$wt < 0.5)] <- 7
+    fg1[which(o1.Tk8$wt < 0.2)] <- 2
     fg1[which(o1.Tk8$wt == 0)]	<- 8
 
  plot(x1, y1, pch=19, col=fg1, main="test robRatio")

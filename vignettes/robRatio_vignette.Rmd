@@ -1,32 +1,107 @@
 ---
-title: Functions included and their tuning parameters
-author: WADA, Kazumi
+title: "Vignette for R package `robRatio`"
+author: WADA Kazumi
 output: 
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Functions included and their tuning parameters}
+  %\VignetteIndexEntry{robRatio-vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-## Structure of functions included in this package
+## About this package
 
-This package containts two parent functions.  One is `robRatio()` for ratio models and the other is `robReg()` for linear regression models.
+The functions contained in this package are originally prepared for ratio imputation for official statistics.
+The ratio model is one of the popular tools for imputation, as the model can accomodate heteroscedastic datasets without any data transformation.  On the other hand, the heteroscedastic error term of the ratio model prevents robustification by means of M-estimation.
+
+The functions for ratio models obtain robustness by extracting the homoscedastic part from the heteroscedastic residuals.  Furthermore, the conventional ratio model is generalized by parameterizing the relationship between the error term and the explanatory variable.  For details, refer to the next section. 
+
+## Generalization and robustification of the ratio model
+
+### Obtain homoscedastic quasi-residuals for M-estimation
+
+The conventional ratio model is $y_i = \beta x_i + \epsilon_i, \; (i=1, \ldots, n)$, where $x_i$ is an exlanatory variable and $y_i$ is a dependent variable. The error term $\epsilon_i$ is heteroscedastic. 
+
+For robustification, the heteroscedastic error term $\epsilon \sim N(0, x_i\sigma^2)$ was reformulated with the homoscedastic error $\varepsilon \sim N(0, \sigma^2)$ as in the linear regression model.
+
+Since these error terms have the relation, $\varepsilon_i = \epsilon_i / \sqrt(x_i)$ (Cochran, 1977), the ratio model can be expressed as $y_i = \beta x_i + \varepsilon_i \sqrt(x_i)$. This re-formulation yields homoscedastic quasi-residuals of the ratio model, which is obtained by dividing the residuals by the square root of $x_i$.
+
+### Generalization
+
+By replacing the error term $\varepsilon_i \sqrt(x_i)$ with $\varepsilon_i x_i^{\gamma}$, the ratio model was generalized.  The new parameter $\gamma$ controls the relationship between the error term and the explanatory variables. The generalized ratio model and its estimation equation is as follows:
+
+$$
+y_i = \beta x_i + x_i^\gamma \varepsilon_i.
+$$
+  
+$$
+\hat{\beta} = \frac{\sum^{n}_{i=1} y_i x_i^{1-2 \gamma}}{\sum^n_{i=1} x_i^{2(1-\gamma)}},
+$$
+
+The quasi-residual $\check{r}_i$ is,
+
+$$
+\check{r}_i = \frac{y_i - \hat{\beta} x_i}{x_i^\gamma}. 
+$$
+
+### Robustification
+
+The robustified estimator for the generalized ratio model is derived by means of M-estimation as follows:
+
+$$
+ \hat{\beta}_{rob} = \frac{\sum{w_i y_i x_i^{1-2\gamma}}}{\sum{w_i x_i^{2 (1-\gamma)}}}, 
+$$
+
+where $w_i$ is obtained using a weight function for quasi residuals $\check{r}$.  The role of the weight function is to alleviate influence of the observations with large residuals.  The following two are the most popular functions among them.  One is Tukey's biweight function, 
+
+$$
+ w_i = w \left(\frac{\check{r}_i}{\hat{\sigma}} \right) = w(e_i) = \left\{ \begin{array}{ll}
+		\left[1-\left( e_i / c\right)^2\right]^2 & |e_i| \le c \\
+		0 & |e_i| > c, 
+		\end{array} \right. \\ 
+$$
+
+and the other is Huber's weight function,
+
+$$
+ w_i = w \left(\frac{\check{r}_i}{\hat{\sigma}} \right) = w(e_i) = \left\{ \begin{array}{ll}
+		1       & |e_i| \le k \\
+		k/|e_i| & |e_i| > k. 
+		\end{array} \right. \\ 
+$$
+
+The standardised residuals $e_i$ are quasi-residuals $\check{r}_i$ divided by an estimated scale parameter $\hat{\sigma}$.  Average absolute deviation (AAD) or median absolute deviation (MAD) is used as the scale parameter, and the tuning constants are shown in the section "About scales of residuals" below. Quasi-residuals $\check{r}_i$ based on the homoscedastic quasi-error term $\varepsilon_i$ are obtained by 
+
+$$
+\check{r}_i = \frac{y_i - \hat{\beta}_{rob} x_i}{x_i^\gamma}.
+$$
+
+### Estimation 
+
+The iterative re-weighted least squares (IRLS) algorithm is used for estimation regarding both models (i.e. regression model and ratio models). See Bienias et al.(1997) and other paper in the reference section.
+
+## Functions included in this package
+
+This package contains two parent functions and an experimental function without any child functions.  
+The parent functions are `robRatio()` for ratio models and `robReg()` for multivarilate linear regression models.
 
 Both `robRatio()` and `robreg()` have two child functions.  One uses Tukey's biweight function and the other, Huber's weight function to calculating robust weight.
 
+The experimental one is `robGR()`. It estimates two parameters of the generalized ratio model simultaneously. 
+
 The following table shows the relationship of each function with their models, weight functions, and scales of residuals.
 
-|Model|Parent function|Child function |Weight function|Scale for residuals|
-|:---------------:|:------:|:-------:|:--------------:|:------------------------------:|
-|Generalized Ratio|robRatio|RrT.aad  |Tukey's biweight|Average Absolute Deviation (AAD)|
-|Generalized Ratio|robRatio|RrT.mad  |Tukey's biweight|Median Absolute Deviation (MAD) |
-|Generalized Ratio|robRatio|RrH.aad  |Huber weight    |AAD|
-|Generalized Ratio|robRatio|RrH.mad  |Huber weight    |MAD|
-|Regression       |robReg  |Tirls.aad|Tukey's biweight|AAD|
-|Regression       |robReg  |Tirls.mad|Tukey's biweight|MAD|
-|Regression       |robReg  |Hirls.aad|Huber weight    |AAD|
-|Regression       |robReg  |Hirls.mad|Huber weight    |MAD|
+|Model|Parent function|Child function |Weight function|Scale for residuals|Gamma value|
+|:---------------:|:------:|:-------:|:--------------:|:------------------------------:|:--------------:|
+|Generalized Ratio|robRatio|RrT.aad  |Tukey's biweight|AAD|Specified by user|
+|Generalized Ratio|robRatio|RrT.mad  |Tukey's biweight|MAD|Specified by user|
+|Generalized Ratio|robRatio|RrH.aad  |Huber weight    |AAD|Specified by user|
+|Generalized Ratio|robRatio|RrH.mad  |Huber weight    |MAD|Specified by user|
+|Regression       |robReg  |Tirls.aad|Tukey's biweight|AAD|Not applicable|
+|Regression       |robReg  |Tirls.mad|Tukey's biweight|MAD|Not applicable|
+|Regression       |robReg  |Hirls.aad|Huber weight    |AAD|Not applicable|
+|Regression       |robReg  |Hirls.mad|Huber weight    |MAD|Not applicable|
+|Generalized Ratio|robGR   |-        |Tukey's biweight|AAD|Estimate simultaneously|
 
 ## About scales of residuals
 
@@ -47,6 +122,16 @@ The IRLS algorithm is based on Bienias et al. (1997). The tuning parameter 'tp' 
 
 ## Reference
 
-Bienias, J. L., Lassman, D. M. Scheleur, S. A. and Hogan H. (1997) Improving Outlier Detection in Two
-Establishment Surveys. Statistical Data Editing 2 - Methods and Techniques. (UNSC and UNECE eds.), 76-83.
+Bienias, J. L., Lassman, D. M. Scheleur, S. A. and Hogan H. (1997) Improving Outlier Detection in Two Establishment Surveys. Statistical Data Editing 2 - Methods and Techniques. (UNSC and UNECE eds.), pp.76-83.
 URL: https://digitallibrary.un.org/record/240780?v=pdf
+
+Cochran, W. G. (1977) Sampling Techniques, 3rd ed., John Wiley & Sons.
+
+Wada, K (2012). Detection of Multivariate Outliers --- Regression Imputation by the Iteratively Reweighted Least Squares | (in Japanese). Research Memoir of Official Statistics,Vol.69, pp.23--52. 
+URL https://www.stat.go.jp/training/2kenkyu/ihou/69/pdf/2-2-692.pdf.
+
+Wada, K, Noro, T (2019). Consideration on the influence of weight functions and the scale for robust regression estimator (in Japanese)." Research Memoir of Official Statistics, Vol.76, pp.101--114. 
+URL https://www.stat.go.jp/training/2kenkyu/ihou/76/pdf/2-2-767.pdf.
+
+Wada,K, Sakashita, K. and Tsubaki, H. (2021). Robust Estimation for a Generalised Ratio Model. Austrian Journal of Statistics, Vol.50, pp.74-–87.
+URL https://doi.org/10.17713/ajs.v50i1.994  

@@ -1,0 +1,19 @@
+---
+title: "robRatio_vinette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{robRatio_vinette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(robRatio)
+```

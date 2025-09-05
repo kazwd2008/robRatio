@@ -52,9 +52,10 @@ a list with the following elements
 }
 }
 \description{
-This robRatio function integrates 12 functions below for easy
-use for users.  Please note that the values for the tuning parameter \code{tp}
-allowed in this function is standardized. See the vignette for the detail.
+This robRatio function integrates 4 functions (RrT.aad, RrT.mad,
+RrH.aad and RrH.mad) for easy use for users.  Please note that the values for
+the tuning parameter \code{tp} allowed in this function is standardized.
+See the vignette for the detail.
 }
 \examples{
 \dontrun{

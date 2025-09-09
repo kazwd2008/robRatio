@@ -2,8 +2,7 @@
 % Please edit documentation in R/robReg.r
 \name{robReg}
 \alias{robReg}
-\title{\code{robReg} is for Robust regression by the IRLS algorithm.
-It integrates Tirls.r and Hirls.r.}
+\title{[Robust estimator for regression models}
 \usage{
 robReg(
   x1,
@@ -46,8 +45,8 @@ a list with the following elements
 }
 }
 \description{
-\code{robReg} is for Robust regression by the IRLS algorithm.
-It integrates Tirls.r and Hirls.r.
+This function is for Robust regression by the IRLS algorithm.
+It integrates child functions contained in Tirls.r and Hirls.r.
 }
 \examples{
 \dontrun{

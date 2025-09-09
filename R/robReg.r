@@ -1,7 +1,8 @@
 ####+####|####+####|####+####|####+####|####+####|####+####|####+####|####+####|
-#' @name robReg
-#' @title \code{robReg} is for Robust regression by the IRLS algorithm.
-#'    It integrates Tirls.r and Hirls.r. 
+#' 
+#' @title [Robust estimator for regression models
+#' @description This function is for Robust regression by the IRLS algorithm.
+#'    It integrates child functions contained in Tirls.r and Hirls.r. 
 #-------------------------------------------------------------------------------
 #' @param x1     explanatory variable in regression (a vector or a matrix)
 #' @param y1     objective variable in regression (a vector)   

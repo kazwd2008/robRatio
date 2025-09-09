@@ -52,9 +52,10 @@ a list with the following elements
 }
 }
 \description{
-This robRatio function integrates 4 functions (RrT.aad, RrT.mad,
-RrH.aad and RrH.mad) for easy use for users.  Please note that the values for
-the tuning parameter \code{tp} allowed in this function is standardized.
+This function integrates 4 functions (RrT.aad, RrT.mad,
+RrH.aad and RrH.mad) for estimating generalized ratio model
+\url{doi:10.17713/ajs.v50i1.994}.  Please note that the values
+for the tuning parameter \code{tp} allowed in this function is standardized.
 See the vignette for the detail.
 }
 \examples{

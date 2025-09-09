@@ -2,7 +2,7 @@
 % Please edit documentation in R/RrT.r
 \name{RrT.mad}
 \alias{RrT.mad}
-\title{RrT.mad: Robust estimator for a generalized ratio model
+\title{Robust estimator for a generalized ratio model
 with Tukey biweight function and MAD scale
 by iteratively re-weighted least squares (IRLS) algorithm for M-estimation}
 \usage{
@@ -31,7 +31,7 @@ a list with the following elements
 \item{\code{efg}}{error flag. 1: acalculia (all weights become zero)  0: successful termination}
 }
 \description{
-RrT.mad: Robust estimator for a generalized ratio model
+Robust estimator for a generalized ratio model
 with Tukey biweight function and MAD scale
 by iteratively re-weighted least squares (IRLS) algorithm for M-estimation
 }

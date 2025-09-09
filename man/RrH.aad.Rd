@@ -2,7 +2,7 @@
 % Please edit documentation in R/RrH.r
 \name{RrH.aad}
 \alias{RrH.aad}
-\title{RrH.aad: Robust estimator for a generalized ratio model
+\title{Robust estimator for a generalized ratio model
 with Huber's weight function and AAD scal
 by iteratively re-weighted least squares (IRLS) algorithm for M-estimation}
 \usage{
@@ -31,7 +31,7 @@ a list with the following elements
 \item{\code{efg}}{error flag. 1: acalculia (all weights become zero)  0: successful termination}
 }
 \description{
-RrH.aad: Robust estimator for a generalized ratio model
+Robust estimator for a generalized ratio model
 with Huber's weight function and AAD scal
 by iteratively re-weighted least squares (IRLS) algorithm for M-estimation
 }

@@ -11,7 +11,7 @@
 #
 #################################################################################################
 #' @name  RrT.aad
-#' @title RrT.aad: Robust estimator for a generalized ratio model
+#' @title Robust estimator for a generalized ratio model
 #'        with Tukey biweight function and AAD scale
 #'        by iteratively re-weighted least squares (IRLS) algorithm for M-estimation
 #'
@@ -78,7 +78,7 @@ RrT.aad <- function(x1, y1, g1=0.5, c1=8, rp.max=100, cg.rt=0.01) {
 #------------------------------------------------------------------------------------------------#
 #------------------------------------------------------------------------------------------------#
 #' @name  RrT.mad
-#' @title RrT.mad: Robust estimator for a generalized ratio model 
+#' @title Robust estimator for a generalized ratio model 
 #'        with Tukey biweight function and MAD scale
 #'        by iteratively re-weighted least squares (IRLS) algorithm for M-estimation
 #'

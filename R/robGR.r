@@ -2,9 +2,9 @@
 #`
 #' @title Robust estimator for a generalized ratio model
 #'
-#' @description This robGR function simultaneously estimates two parameters of 
-#' the generalized ratio model. It uses Tukey's biweight function and AAD for 
-#' scale of quasi residuals.
+#' @description This function simultaneously estimates two parameters of 
+#' the generalized ratio model <doi:10.17713/ajs.v50i1.994>. 
+#' It uses Tukey's biweight function and AAD for scale of quasi residuals.
 #'
 ####+####|####+####|####+####|####+####|####+####|####+####|####+####|####+####|
 #' @name robGR

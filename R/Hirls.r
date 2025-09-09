@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 #' @name  Hirls.aad
-#' @title Hirls.aad: Robust estimator for the linear regression model
+#' @title Robust estimator for the linear regression model
 #'               with Huber's weight function and AAD scal
 #'               by iteratively re-weighted least squares (IRLS) algorithm 
 #'
@@ -52,7 +52,7 @@ Hirls.aad <- function(x1, y1, rt=rep(1, length(y1)), c1=1.15, rp.max=150, cg.rt=
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #' @name  Hirls.mad
-#' @title Hirls.mad: Robust estimator for the linear regression model
+#' @title Robust estimator for the linear regression model
 #'               with Huber's weight function and MAD scal
 #'               by iteratively re-weighted least squares (IRLS) algorithm 
 #'

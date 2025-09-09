@@ -2,7 +2,7 @@
 % Please edit documentation in R/Hirls.r
 \name{Hirls.aad}
 \alias{Hirls.aad}
-\title{Hirls.aad: Robust estimator for the linear regression model
+\title{Robust estimator for the linear regression model
 with Huber's weight function and AAD scal
 by iteratively re-weighted least squares (IRLS) algorithm}
 \usage{
@@ -38,7 +38,7 @@ a list with the following elements
 }
 }
 \description{
-Hirls.aad: Robust estimator for the linear regression model
+Robust estimator for the linear regression model
 with Huber's weight function and AAD scal
 by iteratively re-weighted least squares (IRLS) algorithm
 }

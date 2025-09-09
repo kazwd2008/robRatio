@@ -12,7 +12,7 @@
 #
 #################################################################################################
 #' @name  RrH.aad
-#' @title RrH.aad: Robust estimator for a generalized ratio model 
+#' @title Robust estimator for a generalized ratio model 
 #'               with Huber's weight function and AAD scal
 #'               by iteratively re-weighted least squares (IRLS) algorithm for M-estimation
 #'

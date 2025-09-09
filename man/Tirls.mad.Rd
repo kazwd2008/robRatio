@@ -2,7 +2,7 @@
 % Please edit documentation in R/Tirls.r
 \name{Tirls.mad}
 \alias{Tirls.mad}
-\title{Tirls.mad: Robust estimator for the linear regression model
+\title{Robust estimator for the linear regression model
 with Tukey's biweight function and MAD scale
 by iteratively re-weighted least squares (IRLS) algorithm}
 \usage{
@@ -38,7 +38,7 @@ a list with the following elements
 }
 }
 \description{
-Tirls.mad: Robust estimator for the linear regression model
+Robust estimator for the linear regression model
 with Tukey's biweight function and MAD scale
 by iteratively re-weighted least squares (IRLS) algorithm
 }

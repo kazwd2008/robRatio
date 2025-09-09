@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #' @name  Tirls.aad
-#' @title Tirls.aad: Robust estimator for the linear regression model
+#' @title Robust estimator for the linear regression model
 #'               with Tukey's biweight function and AAD scal
 #'               by iteratively re-weighted least squares (IRLS) algorithm 
 #'
@@ -55,7 +55,7 @@ Tirls.aad <- function(x1, y1, rt=rep(1, length(y1)), c1=8, rp.max=150, cg.rt=0.0
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #' @name  Tirls.mad
-#' @title Tirls.mad: Robust estimator for the linear regression model
+#' @title Robust estimator for the linear regression model
 #'               with Tukey's biweight function and MAD scale
 #'               by iteratively re-weighted least squares (IRLS) algorithm 
 #'

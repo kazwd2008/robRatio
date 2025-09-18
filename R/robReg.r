@@ -26,7 +26,7 @@
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #' @examples
-#' \dontrun{
+# \donttest{
 #' require(robRatio)
 #'
 #' set.seed(4)
@@ -45,7 +45,7 @@
 #' o1 <- robReg(x1, y1, tp=4)  # robust regression by IRLS (more robust)
 #' o2 <- robReg(x1, y1, tp=8)  # robust regression by IRLS (less robust)
 #' 
-#' par(mfrow=c(2,2))
+#' oldpar <- par(mfrow=c(2,2))
 #' 
 #' # non-robust regression
 #'   plot(dat, pch=20, main="non-robust regression")
@@ -69,7 +69,8 @@
 #' # robust weights (less robust)
 #'   hist(o2$wt, main="tp=4(less robust)")
 #' 
-#' }
+#' par(oldpar)
+# }
 #'
 #' @export
 #'

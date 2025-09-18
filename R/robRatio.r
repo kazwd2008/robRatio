@@ -3,10 +3,9 @@
 #' @title Robust estimator for ratio models
 #'
 #' @description This function integrates 4 functions (RrT.aad, RrT.mad,
-#' RrH.aad and RrH.mad) for estimating generalized ratio model 
-#' <doi:10.17713/ajs.v50i1.994>.  Please note that the values
-#' for the tuning parameter \code{tp} allowed in this function is standardized. 
-#' See the vignette for the detail.
+#' RrH.aad and RrH.mad) for estimating generalized ratio model.  Please note 
+#' that the values for the tuning parameter \code{tp} allowed in this function 
+#' is standardized. See the vignette for the detail.
 #
 ####+####|####+####|####+####|####+####|####+####|####+####|####+####|####+####|
 #' @name robRatio
@@ -38,7 +37,7 @@
 ####+####|####+####|####+####|####+####|####+####|####+####|####+####|####+####|
 #'
 #' @examples
-#' \dontrun{
+# \donttest{
 #' require(robRatio)
 #'
 #' x1 <- seq(1, 10, by=0.1)
@@ -47,8 +46,8 @@
 #'
 #' b <- 2		# true value of slope
 #'
-#' y1 <- b*x + x*e			# example 1: gamma=1
-#' y2 <- b*x + sqrt(x)*e   # example 2: gamma=1/2
+#' y1 <- b*x1 + x1*e			# example 1: gamma=1
+#' y2 <- b*x1 + sqrt(x1)*e   # example 2: gamma=1/2
 #'
 #' o1 <- robRatio(x1, y1, gm="a")
 #' o2 <- robRatio(x1, y2, gm="b")
@@ -59,10 +58,11 @@
 #' cl1 <- round((o1$wt)*10+1)
 #' cl2 <- round((o2$wt)*10+1)
 #'
-#' par(mfrow=c(1,2))
-#' plot(x, y1, col=cols[cl1], pch=20)
-#' plot(x, y2, col=cols[cl2], pch=20)
-#' }
+#' oldpar <- par(mfrow=c(1,2))
+#' plot(x1, y1, col=cols[cl1], pch=20)
+#' plot(x1, y2, col=cols[cl2], pch=20)
+#' par(oldpar)
+# }
 #'
 #' @export
 #'

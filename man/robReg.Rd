@@ -49,7 +49,6 @@ This function is for Robust regression by the IRLS algorithm.
 It integrates child functions contained in Tirls.r and Hirls.r.
 }
 \examples{
-\dontrun{
 require(robRatio)
 
 set.seed(4)
@@ -68,7 +67,7 @@ R0  <- lm(y1~x1)        # regression by OLS
 o1 <- robReg(x1, y1, tp=4)  # robust regression by IRLS (more robust)
 o2 <- robReg(x1, y1, tp=8)  # robust regression by IRLS (less robust)
 
-par(mfrow=c(2,2))
+oldpar <- par(mfrow=c(2,2))
 
 # non-robust regression
   plot(dat, pch=20, main="non-robust regression")
@@ -92,6 +91,6 @@ par(mfrow=c(2,2))
 # robust weights (less robust)
   hist(o2$wt, main="tp=4(less robust)")
 
-}
+par(oldpar)
 
 }
